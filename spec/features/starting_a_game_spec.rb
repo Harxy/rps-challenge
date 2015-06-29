@@ -1,6 +1,9 @@
 require_relative '../spec_helper'
 
-describe 'starting a one player game' do
+# you need a test for if a player doesn't choose anything
+
+describe 'starting a one player game' do # consider 'playing a one player game'
+
   scenario 'asked to enter name and click one player' do
     visit '/'
     fill_in('name', with: 'Paul')
@@ -16,6 +19,7 @@ describe 'starting a one player game' do
     click_button 'Submit'
     expect(page).to have_content 'scissors'
   end
+
 end
 
 describe 'starting a two player game' do
@@ -25,7 +29,6 @@ describe 'starting a two player game' do
     click_button 'Two player'
     expect(page).to have_content "Welcome to two player RPS, Paul"
   end
-
 
   scenario 'ask to enter name for second player' do
     visit '/'
@@ -46,8 +49,6 @@ describe 'starting a two player game' do
     click_button 'Submit'
     choose 'Rock'
     click_button 'Submit'
-
   end
-
 
 end

@@ -3,7 +3,7 @@ require 'game'
 describe Game do
   let (:game) {Game.new 'Paul'}
 
-  it 'should take in a player-name' do
+  it 'should take in a player-name' do # don't use should. 
     expect(game.player_1_name).to eq 'Paul'
   end
 
@@ -23,7 +23,7 @@ describe Game do
   # end
 
   it 'should print out the player name if they win' do
-     if game.play_1_player("scissors") == :win
+     if game.play_1_player("scissors") == :win # don't generally have conditionals in tests
        expect(game.game_winner).to eq "Paul"
      end
    end
@@ -31,26 +31,24 @@ describe Game do
   context 'determining the winner' do
 
     it 'should tie when the player guess and the computer guess are the same' do
-      game.stub(:computer_guess).and_return('paper')
+      allow(game).to receive(:computer_guess).and_return 'paper'
       expect(game.play_1_player('paper')).to eq 'tied'
-
     end
 
     it "should win when player choice is scissors and computer choice is paper" do
-    game.stub(:computer_guess).and_return('paper')
-    expect(game.play_1_player('scissors')).to eq 'Paul'
-
+      game.stub(:computer_guess).and_return('paper')
+      expect(game.play_1_player('scissors')).to eq 'Paul'
     end
 
 
     it "should lose when player choice is scissors and computer choice is rock" do
-    game.stub(:computer_guess).and_return('rock')
-    expect(game.play_1_player('scissors')).to eq 'Computer'
+      game.stub(:computer_guess).and_return('rock')
+      expect(game.play_1_player('scissors')).to eq 'Computer'
 
     end
 
     it "should win when player choice is paper and computer choice is rock" do
-    game.stub(:computer_guess).and_return('rock')
+    game.stub(:computer_guess).and_return('rock') # indentation!
     expect(game.play_1_player('paper')).to eq 'Paul'
 
     end
@@ -65,17 +63,17 @@ describe Game do
    end
 
    context 'playing a 2 player game' do
-     let (:game) {Game.new 'Paul','Bobby'}
+     let (:game) { Game.new 'Paul','Bobby' }
 
       it {is_expected.to respond_to(:play_2_player).with(2).arguments}
 
       it 'should take in the players and return a winner' do
-        expect(game.play_2_player('scissors', 'paper')).to eq 'Paul'
+        expect(game.play_2_player('scissors', 'paper')).to eq 'Paul' # perhaps use
+        # keyword syntax here to make it clear who is making these choices
       end
 
       it 'should take in rock and paper and player 2 should win' do
         expect(game.play_2_player('rock','paper')).to eq 'Bobby'
-
       end
     end
 

@@ -2,7 +2,7 @@ require 'sinatra/base'
 require './lib/game'
 
 class GameWeb < Sinatra::Base
-enable :sessions
+  enable :sessions
 
   get '/' do
     erb :index
@@ -15,6 +15,7 @@ enable :sessions
   end
 
   post '/two_player' do
+    session.clear
     session[:name] ||= params[:name]
     erb :two_player
   end
@@ -22,7 +23,7 @@ enable :sessions
 
   post '/two_player_game' do
     session[:name_2] ||= params[:name_2]
-    session[:element1] ||= params[:element1]
+    session[:element1] ||= params[:element1] # consider a more descriptive name
     $game = Game.new(session[:name], session[:name_2])
     erb :two_player_game
   end
@@ -42,5 +43,5 @@ enable :sessions
 
   # start the server if ruby file executed directly
   run! if app_file == $0
-  set :views, proc { File.join(root, '..', 'views') }
+  set :views, proc { File.join(root, '..', 'views') } # this is generally done at the top of the class
 end

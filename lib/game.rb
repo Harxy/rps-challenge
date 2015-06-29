@@ -1,6 +1,12 @@
+# Game Class is responsible for:
+#  - knowing players names
+#  - determining winner of 1 player games
+#     - knowing relationship between rock, paper, and scissors
+#  - deciding on a game winner
+#  - providing the computer's guess
+#
+
 class Game
-
-
   attr_reader :player_1_name, :player_2_name, :lastComputerGuess
 
   def initialize (name = 'player_1', name2 = 'Computer')
@@ -37,6 +43,7 @@ class Game
 
   private
 
+  # refactor using method extraction
   def determine_winner (player1Guess, player2Guess)
     return :tied if player1Guess == player2Guess
     if player1Guess == "scissors"
